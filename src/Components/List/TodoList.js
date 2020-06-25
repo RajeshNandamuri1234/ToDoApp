@@ -3,12 +3,9 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import DeleteIcon from '@material-ui/icons/Delete';
+import todo from '../../Models/todo';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,14 +15,31 @@ const useStyles = makeStyles((theme) => ({
       overflow: 'auto',
       maxHeight: 250,
     },
+    radioClass:{
+        height:'5px'
+    }
   }));
 
 export default function ToDoList(props) {
     const classes = useStyles();
+  
+
+    const IsCompleteItems=((todoItem)=>{
+        if(todoItem.completed==false)
+        {
+            return(<input type="radio" name="isCompleted" value={todoItem.name} onClick={()=>props.onStatusChange(todoItem.id)}></input>)
+        }
+        else
+        return (<div>&nbsp;&nbsp;&nbsp;&nbsp;</div>);
+
+    })
+
     const listItems=props.Items.map((Item)=>
     
     <ListItem>
-        {Item.name}
+       {IsCompleteItems(Item)}
+       &nbsp;&nbsp;
+       <div style={{width:"14px",height:'14px',backgroundColor:Item.Color}}> </div>&nbsp;&nbsp; <span style={{fontSize:'14px',fontFamily:'Arial'}}> {Item.name}</span> &nbsp;&nbsp; <a onClick={()=>props.onDelete(Item.id)} style={{textDecoration:'none',color:'grey'}} href="javascript:void(0)"><DeleteIcon style={{fontSize:'18px'}} /></a>
     </ListItem>
       
     );
@@ -34,6 +48,6 @@ return (
     <List className={classes.root}> 
         {listItems}
     </List>
-)
+)   
 
 }

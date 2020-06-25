@@ -19,6 +19,7 @@ export default function ToDoHeader() {
     </div>
     </div>
      <TaskButtons />
+     <div style={{paddingBottom:'10px'}}></div>
      <TaskStatus TodoItem={todo}/>
          
   </React.Fragment>

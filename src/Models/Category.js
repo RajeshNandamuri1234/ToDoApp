@@ -12,7 +12,8 @@ const Category=[
     {
         Name:'Work',
         Color: "#ff3838",
-    },
+    }
+    
     
 ]
 

@@ -9,6 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Category from '../../Models/Category';
+import AddIcon from '@material-ui/icons/Add';
 
 
 const BootstrapButton = withStyles({
@@ -76,6 +77,12 @@ const useStyles = makeStyles((theme) => ({
   formControlLabel: {
     marginTop: theme.spacing(1),
   },
+  CategoryMenu:{
+    height:'25px',
+    fontSize:'12px',
+    textAlign:'center',
+    fontWeight:'bold'
+  }
 }));
 
 const theme = createMuiTheme({
@@ -89,6 +96,10 @@ export default function TaskButtons() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState('body');
+  
+  
+
+  
 
 
   const handleClickOpen = () => {
@@ -96,7 +107,6 @@ export default function TaskButtons() {
   };
 
   const addCategory=()=>{
-
     
     var metadata={
       Name:document.getElementById("txtCategory").value,
@@ -111,20 +121,55 @@ export default function TaskButtons() {
     setOpen(false);
   };
 
-  const buttonItems=Category.map((Item)=>
+  const menuEnter=(e)=>{
     
-  <ColorButton variant="contained" color="primary" className={classes.margin}>
-    {Item.Name}
-  </ColorButton>
+   
+   
+   var menuid=e.target.getAttribute("id");
+   if(menuid!=null)
+   {
+   var color=e.target.parentElement.getAttribute('menucolor');
+   
+   document.getElementById(menuid).style.backgroundColor=color;
+   document.getElementById(menuid).style.color="White";
+  }
+    
+  }
+  const menuLeave=(e)=>{
+    
+    var menuid=e.target.getAttribute("id");
+    if(menuid!=null)
+   {
+    document.getElementById(menuid).style.backgroundColor="white";
+    document.getElementById(menuid).style.color="black";
+   }
+     
+     
+   }
+
+  const buttonItems=Category.map((Item)=>
+  <td style={{width:'25%'}} menucolor={Item.Color}   >
+    <div style={{width:'5px',height:'25px',float:'left',display:'block',backgroundColor:Item.Color}}></div>
+    <div className={classes.CategoryMenu} onMouseEnter={menuEnter} onMouseLeave={menuLeave} onClick={handleClickOpen} id={Item.Name}  >
+      <span >{Item.Name}</span>
+      </div>
+    </td>
      
   );
 
+  const colorItems=Category.map((Item)=>
+  <td ><span style={{width:"20px",height:'20px',backgroundColor:Item.Color,display:'block'}} > </span></td>
+    
+   )
+
   return (
     <div>
-      {buttonItems}
-      <BootstrapButton variant="contained" color="primary" disableRipple className={classes.margin} onClick={handleClickOpen}>
-        +
-      </BootstrapButton>
+      <table width="70%" id="tblMenus"><tr>
+        {buttonItems}
+        <td><a href="javascript:void(0)" onClick={handleClickOpen}><AddIcon/></a></td>
+        </tr></table>
+      
+      
       <Dialog
         scroll={scroll}
         open={open}
@@ -132,7 +177,7 @@ export default function TaskButtons() {
         aria-labelledby="max-width-dialog-title"
       
       >
-        <DialogTitle id="max-width-dialog-title">Add New Category</DialogTitle>
+        <DialogTitle id="max-width-dialog-title">Category</DialogTitle>
         <DialogContent>
          
           <form className={classes.form} noValidate>
@@ -140,18 +185,18 @@ export default function TaskButtons() {
             <TextField id="txtCategory" label="Category" />
    
            <TextField id="txtColor" label="Color Code" />
-              
-            </FormControl>
-          
-          </form>
+           <table width="60%"><tr>{colorItems}</tr></table>
+           </FormControl>
+         </form>
+         
         </DialogContent>
         <DialogActions>
-        <ColorButton variant="contained" color="secondary" className={classes.margin} onClick={addCategory}>
+        <Button  className={classes.margin} onClick={addCategory}>
         Add Category
-        </ColorButton>
-        <ColorButton variant="contained" color="secondary" className={classes.margin} onClick={handleClose}>
+        </Button>
+        <Button  className={classes.margin} onClick={handleClose}>
         Close
-        </ColorButton>
+        </Button>
      
         </DialogActions>
       </Dialog>
