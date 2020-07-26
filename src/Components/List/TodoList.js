@@ -1,24 +1,11 @@
 import React from 'react';
-
-import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import DeleteIcon from '@material-ui/icons/Delete';
-import todo from '../../Models/todo';
+import useStyles from "../MainCss";
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      backgroundColor: theme.palette.background.paper,
-      position: 'relative',
-      overflow: 'auto',
-      maxHeight: 250,
-    },
-    radioClass:{
-        height:'5px'
-    }
-  }));
 
 export default function ToDoList(props) {
     const classes = useStyles();
@@ -45,9 +32,11 @@ export default function ToDoList(props) {
     );
 
 return (
-    <List className={classes.root}> 
+    <Typography component="div" className={classes.DivTasksList} >
+    <List className={classes.Listroot}> 
         {listItems}
     </List>
+    </Typography>
 )   
 
 }

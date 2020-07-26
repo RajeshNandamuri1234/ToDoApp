@@ -1,12 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import Main from './Components/Main'
+import Main from './Components/Main';
+
 
 function App() {
+
+  
   return (
 
     <React.Fragment>
@@ -15,10 +16,8 @@ function App() {
       <Typography component="div" style={{ backgroundColor: 'white', height: '100vh' }} >
       <Main/>
       </Typography>
-  
-    
     </Container>
-  </React.Fragment>
+   </React.Fragment>
     
   );
 }

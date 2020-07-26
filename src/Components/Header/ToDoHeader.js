@@ -2,25 +2,31 @@ import React from 'react';
 import TaskButtons from './TaskButtons';
 import TaskStatus from './TaskStatus';
 import todo from '../../Models/todo' ;
+import useStyles from "../MainCss";
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 
 export default function ToDoHeader() {
- 
+  const classes = useStyles();
   return (
 
     <React.Fragment>
-   
+    <Container maxWidth="sm">
+    <Typography component="div" className={classes.HeaderBackground}  >
     <div style={{ backgroundColor: 'white',paddingTop:'25px'  }}>
-    <div style={{ color: 'lightgrey', height: '10px', fontSize:'10px', paddingBottom:'5px' }}>
+    <div className={classes.divStepour}>
     STEPOUr"
     </div>
-    <div style={{ color: 'black', height: '30px', fontWeight:'bold',fontSize:'34px', marginBottom:'30px' }}>
+    <div className={classes.divToDoList}>
     To-Do List
     </div>
     </div>
-     <TaskButtons />
-     <div style={{paddingBottom:'10px'}}></div>
-     <TaskStatus TodoItem={todo}/>
+    <TaskButtons />
+    <div style={{paddingBottom:'10px'}}></div>
+    <TaskStatus TodoItem={todo}/>
+    </Typography>
+    </Container>
          
   </React.Fragment>
     
